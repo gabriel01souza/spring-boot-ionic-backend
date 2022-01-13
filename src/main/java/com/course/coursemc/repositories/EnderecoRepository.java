@@ -1,10 +1,12 @@
 package com.course.coursemc.repositories;
 
 
-import com.course.coursemc.domain.Product;
+
+import com.course.coursemc.domain.Endereco;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer> {
+public interface EnderecoRepository extends JpaRepository<Endereco, Integer> {
+
 }

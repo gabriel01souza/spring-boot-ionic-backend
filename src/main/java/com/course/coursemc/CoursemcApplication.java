@@ -2,10 +2,15 @@ package com.course.coursemc;
 
 import com.course.coursemc.domain.Categoria;
 import com.course.coursemc.domain.City;
+import com.course.coursemc.domain.Client;
+import com.course.coursemc.domain.Endereco;
 import com.course.coursemc.domain.Product;
 import com.course.coursemc.domain.State;
+import com.course.coursemc.domain.enums.TipoClient;
 import com.course.coursemc.repositories.CategoriaRepository;
 import com.course.coursemc.repositories.CityRepository;
+import com.course.coursemc.repositories.ClientRepository;
+import com.course.coursemc.repositories.EnderecoRepository;
 import com.course.coursemc.repositories.ProductRepository;
 import com.course.coursemc.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,10 @@ public class CoursemcApplication implements CommandLineRunner {
     private StateRepository stateRepository;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private ClientRepository clientRepository;
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(CoursemcApplication.class, args);
@@ -63,5 +72,16 @@ public class CoursemcApplication implements CommandLineRunner {
         stateRepository.saveAll(Arrays.asList(state1, state2));
         cityRepository.saveAll(Arrays.asList(city1, city2,city3));
 
+        Client client1 = new Client(null, "Maria Silva", "maria@gmail.com", "36378912377", TipoClient.PESSOAFISICA);
+
+        client1.getTelefones().addAll(Arrays.asList("2763323", "938378393"));
+
+        Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", client1, city1);
+        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", client1, city2);
+
+        client1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+
+        clientRepository.saveAll(Arrays.asList(client1));
+        enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));
     }
 }
