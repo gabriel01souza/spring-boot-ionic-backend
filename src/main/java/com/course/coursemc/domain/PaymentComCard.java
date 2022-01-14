@@ -4,8 +4,9 @@ import com.course.coursemc.domain.enums.EstadoPayment;
 
 import javax.persistence.Entity;
 
+
 @Entity
-public class PaymentComCard extends Payment {
+public class PaymentComCard extends Payment{
 
     private Integer numeroDeParcelas;
 

@@ -1,6 +1,7 @@
 package com.course.coursemc.domain;
 
 import com.course.coursemc.domain.enums.EstadoPayment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,6 +21,7 @@ public abstract class Payment implements Serializable {
     private Integer id;
     private Integer estado;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "pedido_id")
     @MapsId
@@ -50,11 +52,11 @@ public abstract class Payment implements Serializable {
         this.estado = estado.getCodigo();
     }
 
-    public Pedido getOrder() {
+    public Pedido getPedido() {
         return pedido;
     }
 
-    public void setOrder(Pedido pedido) {
+    public void setPedido(Pedido pedido) {
         this.pedido = pedido;
     }
 

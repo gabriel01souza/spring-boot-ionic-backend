@@ -1,7 +1,8 @@
 package com.course.coursemc.domain;
 
 import com.course.coursemc.domain.enums.TipoClient;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -24,11 +25,11 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+
     private String email;
     private String cpfOuCnpj;
     private Integer tipoClient;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "client")
     private List<Endereco> enderecos = new ArrayList<>();
 
@@ -36,6 +37,7 @@ public class Client implements Serializable {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Pedido> pedidos = new ArrayList<>();
 
