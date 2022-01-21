@@ -4,6 +4,7 @@ import com.course.coursemc.domain.enums.TipoClient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -30,7 +31,7 @@ public class Client implements Serializable {
     private String cpfOuCnpj;
     private Integer tipoClient;
 
-    @OneToMany(mappedBy = "client")
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Endereco> enderecos = new ArrayList<>();
 
     @ElementCollection
