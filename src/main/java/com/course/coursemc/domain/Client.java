@@ -3,9 +3,9 @@ package com.course.coursemc.domain;
 import com.course.coursemc.domain.enums.TipoClient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,6 +27,7 @@ public class Client implements Serializable {
     private Integer id;
     private String name;
 
+    @Column(unique = true)     //- mas não trata a exception
     private String email;
     private String cpfOuCnpj;
     private Integer tipoClient;
