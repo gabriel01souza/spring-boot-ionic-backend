@@ -2,11 +2,13 @@ package com.course.coursemc.domain;
 
 import com.course.coursemc.domain.enums.EstadoPayment;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("paymentComBoleto")
 public class PaymentComBoleto  extends Payment {
 
     @JsonFormat(pattern = "dd/MM/yyyy")

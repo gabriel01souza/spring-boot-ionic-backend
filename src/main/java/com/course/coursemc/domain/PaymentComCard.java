@@ -1,11 +1,13 @@
 package com.course.coursemc.domain;
 
 import com.course.coursemc.domain.enums.EstadoPayment;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 
 
 @Entity
+@JsonTypeName("paymentComCard")
 public class PaymentComCard extends Payment{
 
     private Integer numeroDeParcelas;
