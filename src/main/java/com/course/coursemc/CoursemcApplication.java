@@ -69,20 +69,42 @@ public class CoursemcApplication implements CommandLineRunner {
         Product product1 = new Product(null, "Computer", 2000.00);
         Product product2 = new Product(null, "Impressora", 800.00);
         Product product3 = new Product(null, "Mouse", 80.00);
+        Product product4 = new Product(null, "Mesa de escritório", 300.00);
+        Product product5 = new Product(null, "Toalha", 50.00);
+        Product product6 = new Product(null, "Colcha", 200.00);
+        Product product7 = new Product(null, "TV true color", 1200.00);
+        Product product8 = new Product(null, "Roçadeira", 800.00);
+        Product product9 = new Product(null, "Abajour", 100.00);
+        Product product10 = new Product(null, "Pendente", 180.00);
+        Product product11 = new Product(null, "Shampoo", 90.00);
 
         categoria1.getProducts().addAll(Arrays.asList(product1, product2, product3));
-        categoria2.getProducts().addAll(Arrays.asList(product2));
+        categoria2.getProducts().addAll(Arrays.asList(product2, product4));
+        categoria3.getProducts().addAll(Arrays.asList(product5, product6));
+        categoria4.getProducts().addAll(Arrays.asList(product1, product2, product3, product7));
+        categoria5.getProducts().addAll(Arrays.asList(product8));
+        categoria6.getProducts().addAll(Arrays.asList(product9, product10));
+        categoria7.getProducts().addAll(Arrays.asList(product11));
 
-        product1.getCategorias().addAll(Arrays.asList(categoria1));
-        product2.getCategorias().addAll(Arrays.asList(categoria1, categoria2));
-        product3.getCategorias().addAll(Arrays.asList(categoria1));
+        product1.getCategorias().addAll(Arrays.asList(categoria1, categoria4));
+        product2.getCategorias().addAll(Arrays.asList(categoria1, categoria2, categoria4));
+        product3.getCategorias().addAll(Arrays.asList(categoria1, categoria4));
+        product4.getCategorias().addAll(Arrays.asList(categoria2));
+        product5.getCategorias().addAll(Arrays.asList(categoria3));
+        product6.getCategorias().addAll(Arrays.asList(categoria3));
+        product7.getCategorias().addAll(Arrays.asList(categoria4));
+        product8.getCategorias().addAll(Arrays.asList(categoria5));
+        product9.getCategorias().addAll(Arrays.asList(categoria6));
+        product10.getCategorias().addAll(Arrays.asList(categoria6));
+        product11.getCategorias().addAll(Arrays.asList(categoria7));
 
         State state1 = new State(null, "Minas Gerais");
         State state2 = new State(null, "São Paulo");
 
         categoriaRepository.saveAll(Arrays.asList(categoria1, categoria2, categoria3,categoria4,
                 categoria5, categoria6, categoria7));
-        productRepository.saveAll(Arrays.asList(product1, product2, product3));
+        productRepository.saveAll(Arrays.asList(product1, product2, product3, product4, product5, product6, product7, product8,
+                product9, product10, product11));
 
         City city1 = new City(null, "Uberlândia", state1);
         City city2 = new City(null, "São Paulo", state2);
