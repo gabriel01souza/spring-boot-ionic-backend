@@ -1,5 +1,6 @@
 package com.course.coursemc.domain;
 
+import com.course.coursemc.domain.enums.Perfil;
 import com.course.coursemc.domain.enums.TipoClient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -8,6 +9,7 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,6 +20,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 public class Client implements Serializable {
@@ -42,12 +45,17 @@ public class Client implements Serializable {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name="PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Pedido> pedidos = new ArrayList<>();
 
 
     public Client(){
+        addPerfil(Perfil.CLIENT);
     }
 
     public Client(Integer id, String name, String email, String cpfOuCnpj, TipoClient tipoClient, String senha) {
@@ -57,6 +65,7 @@ public class Client implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipoClient = (tipoClient == null) ? null : tipoClient.getCodigo();
         this.senha = senha;
+        addPerfil(Perfil.CLIENT);
     }
 
     public Integer getId() {
@@ -105,6 +114,14 @@ public class Client implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Set<Perfil> getPerfis(){
+        return perfis.stream().map(perfil -> Perfil.toEnum(perfil)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil) {
+        perfis.add(perfil.getCodigo());
     }
 
     public List<Endereco> getEnderecos() {

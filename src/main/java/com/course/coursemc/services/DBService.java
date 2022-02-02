@@ -13,6 +13,7 @@ import com.course.coursemc.domain.Pedido;
 import com.course.coursemc.domain.Product;
 import com.course.coursemc.domain.State;
 import com.course.coursemc.domain.enums.EstadoPayment;
+import com.course.coursemc.domain.enums.Perfil;
 import com.course.coursemc.domain.enums.TipoClient;
 import com.course.coursemc.repositories.CategoriaRepository;
 import com.course.coursemc.repositories.CityRepository;
@@ -118,16 +119,22 @@ public class DBService {
         cityRepository.saveAll(Arrays.asList(city1, city2,city3));
 
         Client client1 = new Client(null, "Maria Silva", "gabrielcardososouza3007@gmail.com", "36378912377", TipoClient.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
-
         client1.getTelefones().addAll(Arrays.asList("2763323", "938378393"));
 
+        Client client2 = new Client(null, "Ana Costa", "gabrielcardososouza3007.nft@gmail.com", "31628382740", TipoClient.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
+        client2.getTelefones().addAll(Arrays.asList("45745412", "944231546"));
+        client2.addPerfil(Perfil.ADMIN);
+
         Endereco endereco1 = new Endereco(null, "Rua Flores", "300", "Apto 303", "Jardim", "38220834", client1, city1);
-        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38777012", client1, city2);
+        Endereco endereco2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "514417012", client1, city2);
+        Endereco endereco3 = new Endereco(null, "Avenida Floriano", "2106", null, "Centro", "65987012", client2, city2);
 
         client1.getEnderecos().addAll(Arrays.asList(endereco1, endereco2));
+        client2.getEnderecos().addAll(Arrays.asList(endereco3));
 
-        clientRepository.saveAll(Arrays.asList(client1));
-        enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2));
+
+        clientRepository.saveAll(Arrays.asList(client1, client2));
+        enderecoRepository.saveAll(Arrays.asList(endereco1, endereco2, endereco3));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
