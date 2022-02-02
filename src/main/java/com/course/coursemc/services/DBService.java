@@ -24,6 +24,7 @@ import com.course.coursemc.repositories.PedidoRepository;
 import com.course.coursemc.repositories.ProductRepository;
 import com.course.coursemc.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -32,6 +33,9 @@ import java.util.Arrays;
 
 @Service
 public class DBService {
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     private CategoriaRepository categoriaRepository;
@@ -113,7 +117,7 @@ public class DBService {
         stateRepository.saveAll(Arrays.asList(state1, state2));
         cityRepository.saveAll(Arrays.asList(city1, city2,city3));
 
-        Client client1 = new Client(null, "Maria Silva", "gabrielcardososouza3007@gmail.com", "36378912377", TipoClient.PESSOAFISICA);
+        Client client1 = new Client(null, "Maria Silva", "gabrielcardososouza3007@gmail.com", "36378912377", TipoClient.PESSOAFISICA, bCryptPasswordEncoder.encode("123"));
 
         client1.getTelefones().addAll(Arrays.asList("2763323", "938378393"));
 
