@@ -1,5 +1,6 @@
 package com.course.coursemc.resources.exceptions;
 
+import com.course.coursemc.services.exceptions.AuthorizationException;
 import com.course.coursemc.services.exceptions.DataIntegrityException;
 import com.course.coursemc.services.exceptions.ObjectNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -33,6 +34,12 @@ public class ResourceExceptionHandler {
             err.addError(x.getField(), x.getDefaultMessage());
        }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+    }
+
+    @ExceptionHandler(AuthorizationException.class)
+    public ResponseEntity<StandardError> authorization(AuthorizationException e, HttpServletRequest request){
+        StandardError err = new StandardError(HttpStatus.FORBIDDEN.value(), e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(err);
     }
 
 }

@@ -3,11 +3,14 @@ package com.course.coursemc.services;
 import com.course.coursemc.domain.City;
 import com.course.coursemc.domain.Client;
 import com.course.coursemc.domain.Endereco;
+import com.course.coursemc.domain.enums.Perfil;
 import com.course.coursemc.domain.enums.TipoClient;
 import com.course.coursemc.dto.ClientDTO;
 import com.course.coursemc.dto.ClientNewDTO;
 import com.course.coursemc.repositories.ClientRepository;
 import com.course.coursemc.repositories.EnderecoRepository;
+import com.course.coursemc.security.UserSS;
+import com.course.coursemc.services.exceptions.AuthorizationException;
 import com.course.coursemc.services.exceptions.DataIntegrityException;
 import com.course.coursemc.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,12 @@ public class ClientService {
     private EnderecoRepository enderecoRepository;
 
     public Client find(Integer id) {
+
+        UserSS user = UserService.authenticated();
+        if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())){
+            throw new AuthorizationException("Acesso negado!");
+        }
+
         Optional<Client> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado. ID: "
                 + id + ", tipo: " + Client.class.getName()));
